@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 
-class CurrencyFirstFile extends StatelessWidget {
+class CurrencyFirstFile extends StatefulWidget {
   const CurrencyFirstFile({super.key});
 
   @override
+  State<CurrencyFirstFile> createState() => _CurrencyFirstFileState();
+}
+
+class _CurrencyFirstFileState extends State<CurrencyFirstFile> {
+  double result = 0;
+  final TextEditingController textEditingController = TextEditingController();
+
+  // Convert function for OnPressed button we can also write here like this
+  void convert() {
+    setState(() {
+      result = double.parse(textEditingController.text) * 281;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double result = 0;
-    final TextEditingController textEditingController = TextEditingController();
     // Duplicate code so we will create a seprate varaible for it
     final border = OutlineInputBorder(
       borderSide: BorderSide(
@@ -35,22 +48,22 @@ class CurrencyFirstFile extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              result.toString(),
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 23,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'PKR: ${result != 0 ? result.toStringAsFixed(2) : result.toStringAsFixed(0)}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 40,
+                ),
               ),
-            ),
 
-            // Padding - Textfeild
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: TextField(
+              // Padding - Textfeild
+              TextField(
                 style: const TextStyle(color: Colors.black),
                 controller: textEditingController,
                 decoration: InputDecoration(
@@ -66,21 +79,27 @@ class CurrencyFirstFile extends StatelessWidget {
                   decimal: true,
                 ),
               ),
-            ),
 
-            // Button
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: TextButton(
-                onPressed: () {
-                  // only in debug mode the print will executed
-                  // if (kDebugMode) {
-                  //   print('I\'m clicked');
-                  // }
-                  print(textEditingController.text);
-                  result = double.parse(textEditingController.text) * 280;
-                  print(result);
-                },
+              const SizedBox(
+                height: 15,
+              ),
+
+              // Button
+              TextButton(
+                onPressed: convert,
+                // () {
+                // only in debug mode the print will executed
+                // if (kDebugMode) {
+                //   print('I\'m clicked');
+                // }
+
+                // setState(
+                //   () {
+                //     result = double.parse(textEditingController.text) * 280;
+                //   },
+                // );
+                // },
+
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
@@ -113,9 +132,9 @@ class CurrencyFirstFile extends StatelessWidget {
                 // ),
 
                 child: Text("Convert"),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

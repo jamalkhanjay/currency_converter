@@ -1,3 +1,4 @@
+import 'package:currency_converter/second_screen.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyFirstFile extends StatefulWidget {
@@ -132,7 +133,22 @@ class _CurrencyFirstFileState extends State<CurrencyFirstFile> {
                 // ),
 
                 child: Text("Convert"),
-              )
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (builder) {
+                        return SecondScreen();
+                      },
+                    ),
+                  );
+                },
+                child: Text(
+                  'Visit Second Screen->',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ),
             ],
           ),
         ),
